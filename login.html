@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learn to link!</title>
+</head>
+
+<body>
+    <form>
+        <label>email <input type="email" class="userEmail"></label><br>
+        <label>password <input type="password" class="userPassword"></label><br>
+        <button>submit</button>
+        <a href="#"> forget password</a>
+    </form>
+
+    <script>
+        var Form = document.querySelector("form");
+        var Email = document.querySelector(".userEmail");
+        var Password = document.querySelector(".userPassword");
+        var Button = document.querySelector("button");
+
+        Button.addEventListener("click", () => {
+            var obj = {
+                email: Email.value,
+                password: Password.value,
+            }
+            fetch("http://localhost:3000/api/auth/login", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(obj)
+            }).then((r) => r.json())
+                .then((response) => {
+                    document.cookie = "jwt=" + response.message.token + ";";
+                });
+
+        })
+        // password forget button
+        Form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            Name.value = ""
+            Email.value = ""
+            Lastname.value = ""
+            Password.value = ""
+        })
+    </script>
+</body>
+
+</html>

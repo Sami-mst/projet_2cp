@@ -1,0 +1,1 @@
+const UserControler=require('../controllers/auth')

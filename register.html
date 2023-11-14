@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learn to link!</title>
+</head>
+<body>
+    <form> 
+        <label>name <input type="text" class="userName"></label><br>
+        <label>last name <input type="text" class="userLastName"></label><br>
+        <label>email <input type="email" class="userEmail"></label><br>
+        <label>password <input type="password" class="userPassword"></label><br>
+        <button>submit</button> 
+    </form>
+        
+    <script>
+        var Form=document.querySelector("form");
+        var Name=document.querySelector(".userName");
+        var Email=document.querySelector(".userEmail");
+        var Password=document.querySelector(".userPassword");
+        var Lastname=document.querySelector(".userLastName");
+        var Button=document.querySelector("button");
+
+        Button.addEventListener("click",()=>{
+                var obj={
+                        name:Name.value,
+                        email:Email.value,
+                        password:Password.value,
+                        last_name:Lastname.value,
+                    }
+                    fetch("http://10.5.1.6:3000/api/auth/signup",{
+                    method:"POST",
+                    headers:{
+                        "Content-type":"application/json"
+                    },
+                    body:JSON.stringify(obj)
+                    }).then((r)=>r.json())
+                    .then((response)=>alert(response.message));
+    
+                })
+            Form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            Name.value = ""
+            Email.value = ""
+            Lastname.value = ""
+            Password.value = ""
+        })
+        // phone.addEventListener("input",(e)=>{
+        //     try {
+        //         const AsciiOflatestChare = phone.value.charCodeAt(phone.value.length-1)
+        //         if (AsciiOflatestChare >47 && AsciiOflatestChare<58 )
+        //             return
+        //         phone.value = phone.value.substring(0,phone.value.length-1)
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // })
+    </script>
+</body>
+</html>
